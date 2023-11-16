@@ -1,0 +1,96 @@
+[gd_scene load_steps=8 format=3 uid="uid://dcuwyq5ri7qhg"]
+
+[ext_resource type="Texture2D" uid="uid://dmiu8po4800ad" path="res://Cursed Weapons - Sprite Sheet.png" id="1_on0uv"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ysnw3"]
+radius = 5.0
+height = 18.0
+
+[sub_resource type="Animation" id="Animation_qlsxh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CursedWeapons-SpriteSheet:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_dpj1o"]
+resource_name = "idle"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CursedWeapons-SpriteSheet:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_ud5ac"]
+resource_name = "left"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CursedWeapons-SpriteSheet:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [24, 25, 26]
+}
+
+[sub_resource type="Animation" id="Animation_yxkfs"]
+resource_name = "strike"
+length = 0.85
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CursedWeapons-SpriteSheet:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [12, 13, 14, 15, 16, 17]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2fnsf"]
+_data = {
+"RESET": SubResource("Animation_qlsxh"),
+"idle": SubResource("Animation_dpj1o"),
+"left": SubResource("Animation_ud5ac"),
+"strike": SubResource("Animation_yxkfs")
+}
+
+[node name="sword" type="Area2D"]
+
+[node name="CursedWeapons-SpriteSheet" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_on0uv")
+hframes = 12
+vframes = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_ysnw3")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_2fnsf")
+}

@@ -1,0 +1,127 @@
+[gd_scene load_steps=13 format=3 uid="uid://csdx6s5v3a1om"]
+
+[ext_resource type="Script" path="res://maincharacter.gd" id="1_6gphq"]
+[ext_resource type="Texture2D" uid="uid://pa4a10r5hahu" path="res://top-down character main.png" id="1_nd2st"]
+[ext_resource type="PackedScene" uid="uid://r1qet4cnaehe" path="res://side_character.tscn" id="3_5ha47"]
+[ext_resource type="PackedScene" uid="uid://dcuwyq5ri7qhg" path="res://sword.tscn" id="4_3nj0e"]
+[ext_resource type="Script" path="res://sword.gd" id="5_oqjys"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tos4s"]
+size = Vector2(13, 17)
+
+[sub_resource type="Animation" id="Animation_d0gqx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(-0.1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [7]
+}
+
+[sub_resource type="Animation" id="Animation_haavn"]
+resource_name = "walk down"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_if7bi"]
+resource_name = "walk left"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [12, 13, 14, 15]
+}
+
+[sub_resource type="Animation" id="Animation_alq52"]
+resource_name = "walk right"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [4, 5, 6, 7]
+}
+
+[sub_resource type="Animation" id="Animation_10ecj"]
+resource_name = "walk up"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [8, 9, 10, 11]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7hn3o"]
+_data = {
+"RESET": SubResource("Animation_d0gqx"),
+"walk down": SubResource("Animation_haavn"),
+"walk left": SubResource("Animation_if7bi"),
+"walk right": SubResource("Animation_alq52"),
+"walk up": SubResource("Animation_10ecj")
+}
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+script = ExtResource("1_6gphq")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_nd2st")
+hframes = 4
+vframes = 4
+frame = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, -0.5)
+shape = SubResource("RectangleShape2D_tos4s")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_7hn3o")
+}
+
+[node name="sword" parent="." instance=ExtResource("4_3nj0e")]
+texture_filter = 1
+position = Vector2(9, -3)
+script = ExtResource("5_oqjys")
+
+[node name="side character" parent="." instance=ExtResource("3_5ha47")]
+texture_filter = 1
+position = Vector2(-11, 7)
+collision_layer = 2
